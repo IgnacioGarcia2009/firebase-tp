@@ -1,0 +1,480 @@
+/* ================================
+   RESET Y CONFIGURACIÓN GENERAL
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f5f3;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================================
+   ENCABEZADO
+================================ */
+
+header {
+    background: linear-gradient(135deg, #6c5ce7, #8e7cf6);
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================ */
+
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 30px;
+    flex: 1;
+}
+
+/* ================================
+   SECCIONES / TARJETAS
+================================ */
+
+.formulario,
+.productos {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+}
+
+.formulario h2,
+.productos h2 {
+    color: #444;
+    font-size: 1.35rem;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.formulario h2::after,
+.productos h2::after {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 4px;
+    background: #6c5ce7;
+    border-radius: 10px;
+    margin-top: 8px;
+}
+
+/* ================================
+   FORMULARIO
+================================ */
+
+#productoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#productoForm label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 7px;
+}
+
+#productoForm input,
+#productoForm select {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+
+    background: #fafafa;
+    color: #333;
+
+    font-size: 0.95rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        transform 0.2s ease;
+}
+
+#productoForm input::placeholder {
+    color: #aaa;
+}
+
+#productoForm input:hover,
+#productoForm select:hover {
+    border-color: #b9afff;
+    background: #fff;
+}
+
+#productoForm input:focus,
+#productoForm select:focus {
+    border-color: #6c5ce7;
+    background: white;
+
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.12);
+
+    transform: translateY(-1px);
+}
+
+/* ================================
+   BOTÓN
+================================ */
+
+#productoForm button {
+    border: none;
+    border-radius: 11px;
+
+    padding: 14px 20px;
+
+    background: linear-gradient(135deg, #6c5ce7, #806df0);
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#productoForm button:hover {
+    background: linear-gradient(135deg, #5a4bd1, #705de0);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+}
+
+#productoForm button:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 3px 8px rgba(108, 92, 231, 0.25);
+}
+
+/* ================================
+   MENSAJES
+================================ */
+
+#mensaje {
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+/*
+   Si tu JavaScript agrega estas clases:
+   .exito
+   .error
+   los mensajes tendrán estilos automáticamente.
+*/
+
+#mensaje.exito {
+    background: #e9f9ef;
+    color: #218c4b;
+    border: 1px solid #b9e8ca;
+}
+
+#mensaje.error {
+    background: #fff0f0;
+    color: #d63031;
+    border: 1px solid #ffcaca;
+}
+
+/* ================================
+   LISTA DE PRODUCTOS
+================================ */
+
+#listaProductos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+/*
+   Estilos para las tarjetas que pueda
+   generar tu JavaScript dentro de
+   #listaProductos.
+*/
+
+#listaProductos > div {
+    background: #fafafa;
+    border: 1px solid #eee;
+
+    border-radius: 14px;
+    padding: 18px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+#listaProductos > div:hover {
+    transform: translateY(-5px);
+    border-color: #d8d2ff;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+}
+
+/* ================================
+   ELEMENTOS DENTRO DE PRODUCTOS
+================================ */
+
+#listaProductos h3 {
+    color: #4b3fc4;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+#listaProductos p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+#listaProductos strong {
+    color: #333;
+}
+
+/* Precio */
+
+#listaProductos .precio {
+    display: inline-block;
+
+    margin-top: 10px;
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    background: #eeeaff;
+    color: #5a4bd1;
+
+    font-weight: 700;
+}
+
+/* ================================
+   BOTONES DE LAS TARJETAS
+================================ */
+
+/*
+   Si tu JavaScript genera botones
+   para eliminar o editar productos,
+   estos estilos los harán interactivos.
+*/
+
+#listaProductos button {
+    border: none;
+    border-radius: 8px;
+
+    padding: 8px 12px;
+    margin-top: 12px;
+    margin-right: 6px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#listaProductos button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+#listaProductos button:active {
+    transform: scale(0.96);
+}
+
+/* Botón eliminar */
+
+#listaProductos .eliminar {
+    background: #ffeded;
+    color: #d63031;
+}
+
+#listaProductos .eliminar:hover {
+    box-shadow: 0 4px 10px rgba(214, 48, 49, 0.2);
+}
+
+/* Botón editar */
+
+#listaProductos .editar {
+    background: #eeeaff;
+    color: #5a4bd1;
+}
+
+#listaProductos .editar:hover {
+    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
+}
+
+/* ================================
+   TEXTO "CARGANDO PRODUCTOS..."
+================================ */
+
+#listaProductos > p {
+    text-align: center;
+    color: #999;
+
+    padding: 30px 10px;
+
+    grid-column: 1 / -1;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    background: #2d2a3e;
+    color: #ccc;
+
+    text-align: center;
+
+    padding: 20px;
+
+    margin-top: auto;
+}
+
+footer p {
+    font-size: 0.85rem;
+}
+
+/* ================================
+   RESPONSIVE - TABLETS
+================================ */
+
+@media (max-width: 850px) {
+
+    main {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .formulario,
+    .productos {
+        padding: 24px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* ================================
+   RESPONSIVE - CELULARES
+================================ */
+
+@media (max-width: 500px) {
+
+    header {
+        padding: 28px 15px;
+    }
+
+    header h1 {
+        font-size: 1.7rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    main {
+        width: 94%;
+        margin: 25px auto;
+        gap: 20px;
+    }
+
+    .formulario,
+    .productos {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .formulario h2,
+    .productos h2 {
+        font-size: 1.2rem;
+    }
+
+    #productoForm input,
+    #productoForm select {
+        padding: 11px 12px;
+    }
+
+    #productoForm button {
+        padding: 13px;
+    }
+
+    #listaProductos {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        padding: 17px 10px;
+    }
+}
+
+/* ================================
+   ACCESIBILIDAD
+================================ */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(108, 92, 231, 0.35);
+    outline-offset: 2px;
+}
+
+/* Reduce animaciones si el usuario
+   tiene configurada esa preferencia */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
