@@ -1,20 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
 
 import {
     getDatabase,
     ref,
-    set,
+    push,
     onValue
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: ".firebaseapp.com",
-    databaseURL: "https://.firebaseio.com",
-    projectId: "",
-    storageBucket: ".appspot.com",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyCYH4A60FNcvkXDdFPeHyvInyBI9GQqfSw",
+    authDomain: "cloth-club-e3f70.firebaseapp.com",
+    databaseURL: "https://cloth-club-e3f70-default-rtdb.firebaseio.com",
+    projectId: "cloth-club-e3f70",
+    storageBucket: "cloth-club-e3f70.firebasestorage.app",
+    messagingSenderId: "659870016710",
+    appId: "1:659870016710:web:fd2169b4174a37b51e23c7",
+    measurementId: "G-STXGMCV14F"
 };
 
 const aplicacionFirebase = initializeApp(firebaseConfig);
@@ -23,21 +25,21 @@ const baseDeDatos = getDatabase(aplicacionFirebase);
 
 const productosRef = ref(baseDeDatos, "productos");
 
-
 const formularioProducto = document.getElementById("productoForm");
+
 const mensaje = document.getElementById("mensaje");
+
 const listaProductos = document.getElementById("listaProductos");
 
+const busquedaProducto = document.getElementById("busquedaProducto");
+
+const limpiarBusqueda = document.getElementById("limpiarBusqueda");
+
+let productosActuales = [];
 
 formularioProducto.addEventListener("submit", async (evento) => {
 
     evento.preventDefault();
-
-    const codigoProducto = document
-        .getElementById("codigoProducto")
-        .value
-        .trim()
-        .toUpperCase();
 
     const nombreProducto = document
         .getElementById("nombreProducto")
@@ -63,25 +65,22 @@ formularioProducto.addEventListener("submit", async (evento) => {
         document.getElementById("precio").value
     );
 
-    const productoIndividualRef = ref(
-        baseDeDatos,
-        "productos/" + codigoProducto
-    );
-
-
     try {
 
-        await set(productoIndividualRef, {
+        await push(productosRef, {
+
             nombreProducto: nombreProducto,
             categoria: categoria,
             talle: talle,
             color: color,
             precio: precio
+
         });
 
+        mensaje.textContent =
+            "Producto guardado correctamente en Firebase.";
 
-        mensaje.textContent = "Producto guardado correctamente en Firebase.";
-        mensaje.style.color = "green"
+        mensaje.className = "exito";
 
         formularioProducto.reset();
 
@@ -91,59 +90,153 @@ formularioProducto.addEventListener("submit", async (evento) => {
 
         mensaje.textContent =
             "No se pudo guardar el producto.";
-        mensaje.style.color = "red";
+
+        mensaje.className = "error";
     }
+
 });
 
-onValue(productosRef, (snapshot) => {
+function agregarCampo(tarjeta, nombreCampo, valor) {
+
+    const parrafo = document.createElement("p");
+
+    const etiqueta = document.createElement("strong");
+
+    etiqueta.textContent = nombreCampo + ": ";
+
+    parrafo.appendChild(etiqueta);
+
+    parrafo.appendChild(
+        document.createTextNode(String(valor ?? ""))
+    );
+
+    tarjeta.appendChild(parrafo);
+}
+
+function mostrarProductos() {
 
     listaProductos.innerHTML = "";
 
-    const productos = snapshot.val();
+    const terminoBusqueda = busquedaProducto.value
+        .trim()
+        .toLowerCase();
 
-    if (!productos) {
+    const productosFiltrados = productosActuales.filter(
+        (producto) => {
+
+            return String(producto.nombreProducto ?? "")
+                .toLowerCase()
+                .includes(terminoBusqueda);
+
+        }
+    );
+
+    if (productosActuales.length === 0) {
+
         listaProductos.innerHTML =
             "<p>No hay productos registrados.</p>";
+
         return;
     }
 
-    Object.entries(productos).forEach(
-        ([codigoProducto, producto]) => {
+    if (productosFiltrados.length === 0) {
 
-            const productoHTML = document.createElement("div");
+        listaProductos.innerHTML =
+            "<p>No se encontraron productos.</p>";
 
-            productoHTML.classList.add("producto");
+        return;
+    }
 
-            productoHTML.innerHTML = `
-                <h3>${producto.nombreProducto}</h3>
+    productosFiltrados.forEach((producto) => {
 
-                <p>
-                    <strong>Código:</strong>
-                    ${codigoProducto}
-                </p>
+        const tarjeta = document.createElement("div");
 
-                <p>
-                    <strong>Categoría:</strong>
-                    ${producto.categoria}
-                </p>
+        tarjeta.classList.add("producto");
 
-                <p>
-                    <strong>Talle:</strong>
-                    ${producto.talle}
-                </p>
+        const titulo = document.createElement("h3");
 
-                <p>
-                    <strong>Color:</strong>
-                    ${producto.color}
-                </p>
+        titulo.textContent = producto.nombreProducto;
 
-                <p>
-                    <strong>Precio:</strong>
-                    $${producto.precio}
-                </p>
-            `;
+        tarjeta.appendChild(titulo);
 
-            listaProductos.appendChild(productoHTML);
-        }
-    );
+        agregarCampo(
+            tarjeta,
+            "ID Firebase",
+            producto.idFirebase
+        );
+
+        agregarCampo(
+            tarjeta,
+            "Categoría",
+            producto.categoria
+        );
+
+        agregarCampo(
+            tarjeta,
+            "Talle",
+            producto.talle
+        );
+
+        agregarCampo(
+            tarjeta,
+            "Color",
+            producto.color
+        );
+
+        agregarCampo(
+            tarjeta,
+            "Precio",
+            "$" + producto.precio
+        );
+
+        listaProductos.appendChild(tarjeta);
+
+    });
+
+}
+
+onValue(productosRef, (snapshot) => {
+
+    const datos = snapshot.val();
+
+    productosActuales = [];
+
+    if (datos) {
+
+        productosActuales = Object.entries(datos).map(
+            ([claveFirebase, producto]) => ({
+
+                ...producto,
+
+                idFirebase: claveFirebase
+
+            })
+        );
+
+    }
+
+    mostrarProductos();
+
+}, (error) => {
+
+    console.error("Error al consultar Firebase:", error);
+
+    listaProductos.textContent =
+        "No se pudieron cargar los productos.";
+
 });
+
+busquedaProducto.addEventListener("input", () => {
+
+    mostrarProductos();
+
+});
+
+limpiarBusqueda.addEventListener("click", () => {
+
+    busquedaProducto.value = "";
+
+    mostrarProductos();
+
+});
+
