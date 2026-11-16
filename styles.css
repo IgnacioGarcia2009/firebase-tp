@@ -1,6 +1,15 @@
-/* ================================
-   RESET Y CONFIGURACIÓN GENERAL
-================================ */
+
+:root {
+    --negro: #111111;
+    --gris-oscuro: #292929;
+    --gris: #777777;
+    --gris-claro: #e8e8e8;
+    --fondo: #f5f5f3;
+    --blanco: #ffffff;
+    --acento: #d7ff00;
+    --exito: #198754;
+    --error: #dc3545;
+}
 
 * {
     margin: 0;
@@ -9,87 +18,70 @@
 }
 
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f5f3;
-    color: #333;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    background: var(--fondo);
+    color: var(--negro);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* ================================
-   ENCABEZADO
-================================ */
-
 header {
-    background: linear-gradient(135deg, #6c5ce7, #8e7cf6);
-    color: white;
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 38px 20px 34px;
     text-align: center;
-    padding: 35px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    border-bottom: 4px solid var(--acento);
 }
 
 header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
     font-weight: 700;
-    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
 }
 
 header p {
-    font-size: 1rem;
-    opacity: 0.9;
+    color: #bbbbbb;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
-/* ================================
-   CONTENEDOR PRINCIPAL
-================================ */
-
 main {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
+    width: 92%;
+    max-width: 1350px;
+    margin: 45px auto;
     display: grid;
-    grid-template-columns: 380px 1fr;
+    grid-template-columns: 350px 1fr;
     gap: 30px;
+    align-items: start;
     flex: 1;
 }
 
-/* ================================
-   SECCIONES / TARJETAS
-================================ */
-
 .formulario,
 .productos {
-    background: white;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid #eee;
+    background: var(--blanco);
+    padding: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
 }
 
 .formulario h2,
 .productos h2 {
-    color: #444;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.35rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: 25px;
-    position: relative;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--negro);
 }
-
-.formulario h2::after,
-.productos h2::after {
-    content: "";
-    display: block;
-    width: 45px;
-    height: 4px;
-    background: #6c5ce7;
-    border-radius: 10px;
-    margin-top: 8px;
-}
-
-/* ================================
-   FORMULARIO
-================================ */
 
 #productoForm {
     display: flex;
@@ -97,327 +89,258 @@ main {
 }
 
 #productoForm label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 7px;
+    color: var(--gris-oscuro);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
 }
 
 #productoForm input,
 #productoForm select {
     width: 100%;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-
-    border: 1.5px solid #ddd;
-    border-radius: 10px;
-
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
     background: #fafafa;
-    color: #333;
-
-    font-size: 0.95rem;
-
+    color: var(--negro);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
     outline: none;
-
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background-color 0.25s ease,
-        transform 0.2s ease;
+    transition: border-color 0.2s, background 0.2s;
 }
 
 #productoForm input::placeholder {
-    color: #aaa;
+    color: #999999;
 }
 
 #productoForm input:hover,
 #productoForm select:hover {
-    border-color: #b9afff;
-    background: #fff;
+    border-color: #888888;
 }
 
 #productoForm input:focus,
 #productoForm select:focus {
-    border-color: #6c5ce7;
-    background: white;
-
-    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.12);
-
-    transform: translateY(-1px);
+    border-color: var(--negro);
+    background: var(--blanco);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
 }
 
-/* ================================
-   BOTÓN
-================================ */
-
 #productoForm button {
-    border: none;
-    border-radius: 11px;
-
-    padding: 14px 20px;
-
-    background: linear-gradient(135deg, #6c5ce7, #806df0);
-    color: white;
-
-    font-size: 1rem;
-    font-weight: 700;
-
+    padding: 16px;
+    margin-top: 5px;
+    background: var(--negro);
+    color: var(--blanco);
+    border: 2px solid var(--negro);
+    border-radius: 2px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
     cursor: pointer;
-
-    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    transition: 0.25s ease;
 }
 
 #productoForm button:hover {
-    background: linear-gradient(135deg, #5a4bd1, #705de0);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+    background: var(--acento);
+    color: var(--negro);
+    border-color: var(--acento);
 }
-
-#productoForm button:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 0 3px 8px rgba(108, 92, 231, 0.25);
-}
-
-/* ================================
-   MENSAJES
-================================ */
 
 #mensaje {
     margin-top: 18px;
-    padding: 10px 14px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 2px;
     text-align: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-}
-
-/*
-   Si tu JavaScript agrega estas clases:
-   .exito
-   .error
-   los mensajes tendrán estilos automáticamente.
-*/
-
-#mensaje.exito {
-    background: #e9f9ef;
-    color: #218c4b;
-    border: 1px solid #b9e8ca;
-}
-
-#mensaje.error {
-    background: #fff0f0;
-    color: #d63031;
-    border: 1px solid #ffcaca;
-}
-
-/* ================================
-   LISTA DE PRODUCTOS
-================================ */
-
-#listaProductos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-}
-
-/*
-   Estilos para las tarjetas que pueda
-   generar tu JavaScript dentro de
-   #listaProductos.
-*/
-
-#listaProductos > div {
-    background: #fafafa;
-    border: 1px solid #eee;
-
-    border-radius: 14px;
-    padding: 18px;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-}
-
-#listaProductos > div:hover {
-    transform: translateY(-5px);
-    border-color: #d8d2ff;
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
-}
-
-/* ================================
-   ELEMENTOS DENTRO DE PRODUCTOS
-================================ */
-
-#listaProductos h3 {
-    color: #4b3fc4;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-}
-
-#listaProductos p {
-    color: #666;
-    font-size: 0.9rem;
-    margin: 5px 0;
-    line-height: 1.5;
-}
-
-#listaProductos strong {
-    color: #333;
-}
-
-/* Precio */
-
-#listaProductos .precio {
-    display: inline-block;
-
-    margin-top: 10px;
-    padding: 6px 10px;
-
-    border-radius: 8px;
-
-    background: #eeeaff;
-    color: #5a4bd1;
-
+    font-size: 0.85rem;
     font-weight: 700;
 }
 
-/* ================================
-   BOTONES DE LAS TARJETAS
-================================ */
+#mensaje:empty {
+    display: none;
+}
 
-/*
-   Si tu JavaScript genera botones
-   para eliminar o editar productos,
-   estos estilos los harán interactivos.
-*/
+#mensaje.exito {
+    color: var(--exito);
+    background: #eaf6ee;
+    border: 1px solid #b9e4c8;
+}
 
-#listaProductos button {
-    border: none;
-    border-radius: 8px;
+#mensaje.error {
+    color: var(--error);
+    background: #fff0f0;
+    border: 1px solid #f2baba;
+}
 
-    padding: 8px 12px;
-    margin-top: 12px;
-    margin-right: 6px;
+.busqueda {
+    margin-bottom: 25px;
+}
 
+.busqueda label {
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.busqueda-controles {
+    display: flex;
+    gap: 10px;
+}
+
+#busquedaProducto {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
+    background: #fafafa;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+#busquedaProducto:focus {
+    border-color: var(--negro);
+    background: var(--blanco);
+}
+
+.busqueda-controles button {
+    padding: 12px 16px;
+    background: var(--blanco);
+    color: var(--negro);
+    border: 1px solid var(--negro);
+    border-radius: 2px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     cursor: pointer;
-
-    font-weight: 600;
-
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: 0.2s ease;
 }
 
-#listaProductos button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+.busqueda-controles button:hover {
+    background: var(--negro);
+    color: var(--blanco);
 }
 
-#listaProductos button:active {
-    transform: scale(0.96);
+#listaProductos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
 }
 
-/* Botón eliminar */
-
-#listaProductos .eliminar {
-    background: #ffeded;
-    color: #d63031;
+#listaProductos > div {
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 22px;
+    transition: 0.25s ease;
+    min-width: 0;
 }
 
-#listaProductos .eliminar:hover {
-    box-shadow: 0 4px 10px rgba(214, 48, 49, 0.2);
+#listaProductos > div:hover {
+    background: var(--blanco);
+    border-color: var(--negro);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
 }
 
-/* Botón editar */
-
-#listaProductos .editar {
-    background: #eeeaff;
-    color: #5a4bd1;
+#listaProductos h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dedede;
 }
 
-#listaProductos .editar:hover {
-    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
+#listaProductos p {
+    color: var(--gris);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    margin: 5px 0;
+    overflow-wrap: anywhere;
 }
 
-/* ================================
-   TEXTO "CARGANDO PRODUCTOS..."
-================================ */
+#listaProductos strong {
+    color: var(--negro);
+    font-weight: 800;
+}
+
+#listaProductos .producto p:last-child {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 7px 12px;
+    background: var(--acento);
+    color: var(--negro);
+    font-size: 0.9rem;
+    font-weight: 900;
+}
 
 #listaProductos > p {
-    text-align: center;
-    color: #999;
-
-    padding: 30px 10px;
-
     grid-column: 1 / -1;
+    padding: 35px 10px;
+    text-align: center;
+    color: var(--gris);
+    font-size: 0.9rem;
 }
 
-/* ================================
-   FOOTER
-================================ */
-
 footer {
-    background: #2d2a3e;
-    color: #ccc;
-
+    background: var(--negro);
+    color: #aaaaaa;
     text-align: center;
-
-    padding: 20px;
-
+    padding: 25px 15px;
     margin-top: auto;
 }
 
 footer p {
-    font-size: 0.85rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-/* ================================
-   RESPONSIVE - TABLETS
-================================ */
-
-@media (max-width: 850px) {
-
+@media (max-width: 950px) {
     main {
         grid-template-columns: 1fr;
-        width: 92%;
+        max-width: 700px;
+        gap: 25px;
     }
 
     .formulario,
     .productos {
-        padding: 24px;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 550px) {
+    header {
+        padding: 30px 15px;
     }
 
     header h1 {
         font-size: 2rem;
-    }
-}
-
-/* ================================
-   RESPONSIVE - CELULARES
-================================ */
-
-@media (max-width: 500px) {
-
-    header {
-        padding: 28px 15px;
-    }
-
-    header h1 {
-        font-size: 1.7rem;
+        letter-spacing: 3px;
     }
 
     header p {
-        font-size: 0.9rem;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
     }
 
     main {
@@ -429,52 +352,40 @@ footer p {
     .formulario,
     .productos {
         padding: 20px;
-        border-radius: 14px;
     }
 
     .formulario h2,
     .productos h2 {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
 
-    #productoForm input,
-    #productoForm select {
-        padding: 11px 12px;
+    .busqueda-controles {
+        flex-direction: column;
     }
 
-    #productoForm button {
-        padding: 13px;
+    .busqueda-controles button {
+        width: 100%;
+        padding: 14px;
     }
 
     #listaProductos {
         grid-template-columns: 1fr;
     }
-
-    footer {
-        padding: 17px 10px;
-    }
 }
-
-/* ================================
-   ACCESIBILIDAD
-================================ */
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-    outline: 3px solid rgba(108, 92, 231, 0.35);
-    outline-offset: 2px;
+    outline: 3px solid var(--acento);
+    outline-offset: 3px;
 }
 
-/* Reduce animaciones si el usuario
-   tiene configurada esa preferencia */
-
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
         transition: none !important;
         animation: none !important;
+        scroll-behavior: auto !important;
     }
 }
