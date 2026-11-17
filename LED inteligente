@@ -1,0 +1,111 @@
+ 
+#define ENABLE_DATABASE
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+#include <FirebaseClient.h>
+
+// WIFI
+#define WIFI_SSID "UFASTA2020-5Ghz"
+#define WIFI_PASSWORD "memorex2020"
+
+// FIREBASE
+#define DATABASE_URL "https://led-inteligente-default-rtdb.firebaseio.com"
+
+#define RELAY_PIN D1
+
+// Cambiar a false si el rele se activa con HIGH
+const bool RELAY_ACTIVE_LOW = true;
+
+WiFiClientSecure sslClient;
+
+using AsyncClient = AsyncClientClass;
+
+AsyncClient firebaseClient(sslClient);
+
+FirebaseApp app;
+RealtimeDatabase Database;
+
+unsigned long lastCheck = 0;
+
+// Funcion para recibir el estado de Firebase
+void processLedResult(AsyncResult &result) {
+
+  if (result.isError()) {
+    Serial.println("Error leyendo Firebase:");
+    Serial.println(result.error().message());
+    return;
+  }
+
+  if (result.available()) {
+
+    RealtimeDatabaseResult &rtdb =
+        result.to<RealtimeDatabaseResult>();
+
+    bool ledState = rtdb.to<bool>();
+
+    Serial.print("Estado recibido: ");
+    Serial.println(ledState ? "true" : "false");
+
+    if (RELAY_ACTIVE_LOW) {
+      digitalWrite(RELAY_PIN, ledState ? LOW : HIGH);
+    } else {
+      digitalWrite(RELAY_PIN, ledState ? HIGH : LOW);
+    }
+
+    Serial.println(ledState ? "LUZ ENCENDIDA" : "LUZ APAGADA");
+  }
+}
+
+void setup() {
+
+  Serial.begin(115200);
+
+  pinMode(RELAY_PIN, OUTPUT);
+
+  // Mantener el rele apagado al iniciar
+  digitalWrite(RELAY_PIN, RELAY_ACTIVE_LOW ? HIGH : LOW);
+
+  // Conectar WiFi
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  Serial.print("Conectando al WiFi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.println("WiFi conectado");
+  Serial.println(WiFi.localIP());
+
+  // Conexion HTTPS para prueba
+  sslClient.setInsecure();
+
+  // Firebase sin autenticacion
+  NoAuth noAuth;
+
+  initializeApp(firebaseClient, app, getAuth(noAuth));
+
+  app.getApp<RealtimeDatabase>(Database);
+
+  Database.url(DATABASE_URL);
+}
+
+void loop() {
+
+  app.loop();
+
+  if (app.ready() && millis() - lastCheck >= 2000) {
+
+    lastCheck = millis();
+
+    Database.get(
+      firebaseClient,
+      "/luces/led1",
+      processLedResult,
+      false,
+      "readLed"
+    );
+  }
+}
